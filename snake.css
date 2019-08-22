@@ -1,0 +1,17 @@
+*{
+    text-align: center;
+}
+body{
+    background-color: rgb(21, 40, 65);
+    color: white;
+}
+.info{
+    position: relative;
+    left: 4%;
+    width: 600px;
+    height: 70px;
+}
+h2{
+    float: left;
+    margin: 30px;
+}
