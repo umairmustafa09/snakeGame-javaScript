@@ -120,6 +120,10 @@ function EatApple(){
     axis.push( {} );
     //calling random apple function to generate apple in random posiition.
     RandomApple();
+    //checking apple not hide behind snake.
+    for(let i = 0; i < snake.length; i++)
+        if( appleAxis.x == axis[i].x && appleAxis.y == axis[i].y)
+            RandomApple();
     //counting the score of user.
     count++;
     //showing score on borwser.
