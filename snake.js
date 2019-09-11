@@ -10,7 +10,7 @@ let axis = [ { x: 0, y: 0 } ];
  //axis array of object for Apple.
 let appleAxis = { x: 0, y: 0 };
 //variable intilization.
-let code = 0, prevCode = 0 , newCode = 0, intId= 0, count = 0;
+let code = 0, prevCode = 0 , newCode = 0, intId= 0, count = 0, topScore = 0;
 
 //snake head on rest state.
 context.fillRect( axis.x, axis.y, snake.x, snake.y ); //on rest state showing snkae head.
@@ -18,6 +18,7 @@ context.fillRect( axis.x, axis.y, snake.x, snake.y ); //on rest state showing sn
 intId = setInterval( continuoulyMove, 150 );
 //calling apple funciton.
 RandomApple();
+
 
 //move snake function.
 function movesnake(){
@@ -38,6 +39,9 @@ function movesnake(){
         context.fillRect( axis[ i ].x, axis[ i  ].y, snake[ i ].x, snake[ i ].y ); //drawing snake at new position.
     }
 }
+
+
+
 
 //random Apple function.
 function RandomApple(){
@@ -112,11 +116,11 @@ function continuoulyMove(){
     movesnake();
 }
 
+
 // eat snake function.
 function EatApple(){
-    //pushing values in snake array.
+    //pushing values
     snake.push( {} );
-    //pushing values in snake axis array.
     axis.push( {} );
     //calling random apple function to generate apple in random posiition.
     RandomApple();
@@ -128,11 +132,30 @@ function EatApple(){
     count++;
     //showing score on borwser.
     document.getElementById( "score" ).innerHTML = "<h2>Score: " + count + " </h2>";
-    localStorage.setItem("count:", count);
+    
 }
 //game over function.
 function gameOver(){
     //clearing interval.
     clearInterval( intId );
     document.getElementById( "gameOver" ).innerHTML = "<h2>Game Over</h2>";
+    //calculating high score:
+    count > localStorage.getItem( "topScore" ) ? topScore = count : topScore = localStorage.getItem( "topScore" );
+    console.log( { count, topScore } );
+    //adding highScore to local Storage
+    localStorage.setItem("topScore", topScore);
+    highScore();
 }
+
+//page reload function.
+function restart(){
+    location.reload();
+}
+
+//highScore function.
+function highScore(){
+    localStorage.getItem( "topScore" ) != null ? document.getElementById( "highScore" ).innerHTML = "<h2>High Score: " + localStorage.getItem( "topScore" ) + " </h2>" : document.getElementById( "highScore" ).innerHTML = "<h2>High Score: 0</h2>";
+}
+
+//calliing highScore.
+highScore();
