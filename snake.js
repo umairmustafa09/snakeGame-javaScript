@@ -1,6 +1,9 @@
 const convas = document.getElementById( "canvas" );
 const context = canvas.getContext( '2d' );
 
+
+
+
 // snake array of object.
 let snake = [ { x: 20, y: 20 } ];  
 // apple array of object.
@@ -9,8 +12,8 @@ let apple = { x: 20, y: 20 };
 let axis = [ { x: 0, y: 0 } ]; 
  //axis array of object for Apple.
 let appleAxis = { x: 0, y: 0 };
-//variable intilization.
-let code = 0, prevCode = 0 , newCode = 0, intId= 0, count = 0, topScore = 0;
+//variable declaration ad intilization.
+let code = 0, prevCode = 0 , newCode = 0, intId= 0, score = 0, topScore = 0;
 
 //snake head on rest state.
 context.fillRect( axis.x, axis.y, snake.x, snake.y ); //on rest state showing snkae head.
@@ -18,6 +21,9 @@ context.fillRect( axis.x, axis.y, snake.x, snake.y ); //on rest state showing sn
 intId = setInterval( continuoulyMove, 150 );
 //calling apple funciton.
 RandomApple();
+
+
+
 
 
 //move snake function.
@@ -28,13 +34,13 @@ function movesnake(){
     context.fillStyle = "white";
     context.fillRect( 0, 0, canvas.width, canvas.height ); 
     //drawing apple on canvas.
-    context.fillStyle = "black";
+    context.fillStyle = "rgb( 231, 76, 60  )";
     context.fillRect( appleAxis.x, appleAxis.y, apple.x, apple.y );
     //drawing snake head on canvas.
-    context.fillStyle = "blue";
+    context.fillStyle = "rgb( 88, 214, 141 )";
     context.fillRect(  axis[ 0 ].x, axis[ 0  ].y, snake[ 0 ].x, snake[ 0 ].y ); 
     //drawing snake body on canvas.
-    context.fillStyle = "red"; 
+    context.fillStyle = "rgb( 169, 223, 191 )"; 
     for( let i = 1; i < snake.length; i++ ){
         context.fillRect( axis[ i ].x, axis[ i  ].y, snake[ i ].x, snake[ i ].y ); //drawing snake at new position.
     }
@@ -52,6 +58,10 @@ function RandomApple(){
     appleAxis.y = appleAxis.y * 20;
 }
 
+
+
+
+
 //when key press acting according to it.
 window.onkeydown = function ( event ) {
     //condition to act on only when W, A, S and D key pressed
@@ -68,18 +78,22 @@ window.onkeydown = function ( event ) {
         code = event.keyCode;
 }
 
+
+
+
+
 function continuoulyMove(){
     //for loop for snake lenght to 0.
     for( let i = snake.length - 1; i >= 0 ; i-- ){
         if( i == 0 ){
             if( code == 83 ){
                 //canvas height - snake intial height.
-                if( axis[ i ].y < 480 )  
+                if( axis[ i ].y < canvas.height - snake[i].y )  
                     axis[ i ].y += snake[ i ].y;
             }
             else if( code == 68 ){
                  //canvas width - snake intial width.
-                if( axis[ i ].x < 480)    
+                if( axis[ i ].x < canvas.width - snake[i].x )    
                     axis[ i ].x += snake[ i ].x;
             }
             else if( code == 65 ){
@@ -117,6 +131,9 @@ function continuoulyMove(){
 }
 
 
+
+
+
 // eat snake function.
 function EatApple(){
     //pushing values
@@ -128,24 +145,30 @@ function EatApple(){
     for(let i = 0; i < snake.length; i++)
         if( appleAxis.x == axis[i].x && appleAxis.y == axis[i].y)
             RandomApple();
-    //counting the score of user.
-    count++;
+    //scoreing the score of user.
+    score++;
     //showing score on borwser.
-    document.getElementById( "score" ).innerHTML = "<h2>Score: " + count + " </h2>";
-    
+    document.getElementById( "score" ).innerHTML = "<h2>Score: " + score + " </h2>";
 }
+
+
+
+
 //game over function.
 function gameOver(){
     //clearing interval.
     clearInterval( intId );
     document.getElementById( "gameOver" ).innerHTML = "<h2>Game Over</h2>";
     //calculating high score:
-    count > localStorage.getItem( "topScore" ) ? topScore = count : topScore = localStorage.getItem( "topScore" );
-    console.log( { count, topScore } );
+    score > localStorage.getItem( "topScore" ) ? topScore = score : topScore = localStorage.getItem( "topScore" );
     //adding highScore to local Storage
     localStorage.setItem("topScore", topScore);
     highScore();
 }
+
+
+
+
 
 //page reload function.
 function restart(){

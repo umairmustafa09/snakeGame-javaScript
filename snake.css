@@ -2,17 +2,17 @@
     text-align: center;
 }
 body{
-    background-color: rgb(21, 40, 65);
+    background-color: rgb( 131, 145, 146 );
     color: white;
 }
-.info{
+#canvas{
     position: relative;
-    left: 4%;
-    width: 600px;
-    height: 70px;
+}
+#info{
+    position: relative;
 }
 h2{
-    float: left;
+    text-align: center;
     margin: 30px;
 }
 a{
